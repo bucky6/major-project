@@ -1,4 +1,4 @@
-# proposal
+# Proposal
 
 
 Put a description of project here
