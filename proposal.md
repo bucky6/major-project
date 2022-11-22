@@ -1,19 +1,20 @@
 # Proposal
 
-I want to make a pixelized top-down dungeon crawler, with a choose your own adventure aspect. There'll be a few different set endings, but your choices in the game will affect how it turns out in the end. 
+I want to make a pixelized top-down choose-your-own-adventure dungeon crawler. The player will have some freedom to do what they want, but it'll be mostly pre-set choices to determine the ending.
 
 ## Needs to have list
 
 - 5-ish different endings
-- User text input
+- Text input from user
 - Texture pack from opengameart
 - Sound effects and background music
 - Abilities levels (strength, intelligence, dexterity, etc)
 - Hitpoints and damage
 - Starting menu and end screen
-- 3 different monsters
+- At least 3 different monsters
 - Boss
 - NPC's to interact with
+- Box at the bottom of screen to display text
 
 ## Nice to have list
 
@@ -21,7 +22,7 @@ I want to make a pixelized top-down dungeon crawler, with a choose your own adve
 - In-game merchant to buy supplies from
 - Separate mini-game to determine abilities
 - Hunger and thirst variables
-- Fighting scenes actually affect how the game will turn out-- aren't just pre-determined
 - Mini-map
-- Power-up
-- Separate fighting screens
+- Power-ups
+- Separate fighting screens with animations
+- Event log (see pixel dungeon)
