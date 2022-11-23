@@ -26,3 +26,5 @@ I want to make a pixelized top-down choose-your-own-adventure dungeon crawler. T
 - Power-ups
 - Separate fighting screens with animations
 - Event log (see pixel dungeon)
+- Different main quests to choose from
+- Side quests
