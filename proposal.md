@@ -30,3 +30,4 @@ I want to make a pixelized top-down choose-your-own-adventure dungeon crawler. T
 - Side quests
 - Animations for player/monster/NPC movement
 - Weapons and other items for player to pick up
+- Make text for intro scroll down the screen
