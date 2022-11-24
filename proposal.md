@@ -28,3 +28,4 @@ I want to make a pixelized top-down choose-your-own-adventure dungeon crawler. T
 - Log of every event that's occurred (Ex. You hit monster, you drank a potion, monster hit you)
 - Different main quests to choose from
 - Side quests
+- Animations for player/monster/NPC movement
