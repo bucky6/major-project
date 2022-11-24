@@ -15,6 +15,7 @@ I want to make a pixelized top-down choose-your-own-adventure dungeon crawler. T
 - Boss
 - NPC's to interact with
 - Box at the bottom of screen to display text
+- Weapons and other items for player to pick up
 
 ## Nice to have list
 
