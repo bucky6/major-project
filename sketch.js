@@ -18,15 +18,16 @@ function draw() {
 
 function mainMenu() {
   if (state === "mainMenu") {
-    background(102, 101, 101);
+    background(141, 141, 141);
     textFont("georgia", 50);
-    text("Escape From The Castle", width/2 - 250, height/3);
-
+    text("Escape From The Castle", width/2 - 240, height/3);
+    rect(width/2 - 125, height/2 - 75, 250, 150);
+    text("Play", width/2 - 100, height/2);
   }
 }
 
 
-// To Do (more or less in order?)
+// To Do (somewhat in order?)
 
 // Figure out story and endings
 // Write intro
