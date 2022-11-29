@@ -4,16 +4,15 @@ I want to make a pixelized top-down choose-your-own-adventure dungeon crawler. T
 
 ## Needs to have list
 
-- 5-ish different endings
+- At least 3 different endings
 - Text input from user
 - Texture pack from opengameart
 - Sound effects and background music
-- Abilities levels (strength, intelligence, dexterity, etc)
+- Character abilities levels (strength, intelligence, dexterity, etc)
 - Hitpoints and damage
 - Starting menu and end screen
 - At least 3 different monsters
 - Boss
-- NPC's to interact with
 - Box at the bottom of screen to display text
 
 ## Nice to have list
@@ -31,3 +30,4 @@ I want to make a pixelized top-down choose-your-own-adventure dungeon crawler. T
 - Animations for player/monster/NPC movement
 - Weapons and other items for player to pick up
 - Make text for intro scroll down the screen
+- NPC's to interact with
