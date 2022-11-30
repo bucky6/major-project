@@ -7,10 +7,11 @@
 
 let state = "mainMenu";
 let backgroundColor = 220;
-let nightCastleImage;
+let nightCastleImage, titleTextImage;
 
 function preload() {
   nightCastleImage = loadImage("assets/nightCastle.png");
+  titleTextImage = loadImage("assets/titleText.png");
 }
 
 function setup() {
@@ -30,7 +31,7 @@ function draw() {
 // make the main menu
 function mainMenu() {
   background(backgroundColor);
-  textFont("georgia", 50);
+  textFont("Dungeon Regular", 50);
   text("Escape From The Castle", width/2 - 240, height/3);
   text("Play", width/2 - 100, height/2);
   if (state === "mainMenu" && mouseInsideRect(width/2 - 125, width/2 + 125, height/2 - 75, height/2 + 75)) {

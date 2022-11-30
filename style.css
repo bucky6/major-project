@@ -6,3 +6,10 @@ html, body {
 canvas {
   display: block;
 }
+
+@font-face {
+  font-family: 'Dungeon Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Dungeon Regular'), url('DUNGRG__.woff') format('woff');
+  }
