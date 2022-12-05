@@ -7,10 +7,11 @@
 
 let state = "mainMenu";
 let backgroundColor = 25;
-let nightCastleImage;
+let nightCastleImage, banner1;
 
 function preload() {
   nightCastleImage = loadImage("assets/nightCastle.png");
+  banner1 = loadImage("assets/banner1.png");
 }
 
 function setup() {
@@ -28,8 +29,8 @@ function draw() {
   if (state === "castle") {
     image(nightCastleImage, 0, 0, width, height);
   }
-  if (state === "game") {
-    background(220);
+  if (state === "door") {
+    doorScreen();
   }
 }
 
@@ -39,8 +40,10 @@ function mainMenu() {
   // fill("white");
   textFont("georgia", 50);
   text("Escape From The Castle", width/2 - 240, height/3);
-  text("Play", width/2 - 100, height/2);
+  // image(banner1, width/2 - 125, height/2 - 75, 500, 400);
   rect(width/2 - 125, height/2 - 75, 250, 150);
+  fill("black");
+  text("Play", width/2 - 55, height/2 + 15);
   if (state === "mainMenu" && mouseInsideRect(width/2 - 125, width/2 + 125, height/2 - 75, height/2 + 75)) {
     fill("grey");
   }
@@ -76,10 +79,12 @@ function keyPressed() {
   if (state === "intro" && keyCode === 32) {
     state = "castle";
   }
-  // if (state === "castle" && keyCode === 32) {
-  //   state = "game";
-  // }
+  else if (state === "castle" && keyCode === 32) {
+    state = "door";
+  }
 }
+
+
 
 // To Do (somewhat in order?)
 
