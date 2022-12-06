@@ -5,21 +5,29 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+let rows = 25;
+let cols = 40;
+let grid, cellWidth, cellHeight;
 let state = "mainMenu";
 let backgroundColor = 25;
-let nightCastleImage, banner1;
+let nightCastleImage, castleDoorImage, castleWallImage, dirtFloorImage;
 
 function preload() {
   nightCastleImage = loadImage("assets/nightCastle.png");
-  banner1 = loadImage("assets/banner1.png");
+  castleDoorImage = loadImage("assets/castleDoor.png");
+  castleWallImage = loadImage("assets/castleWall.png");
+  dirtFloorImage = loadImage("assets/dirtFloor.png");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  cellWidth = width/cols;
+  cellHeight = height/rows; 
+  grid = create2DArray(cols, rows);
 }
 
 function draw() {
-  background(25);
+  background(220);
   if (state === "mainMenu") {
     mainMenu();
   }
@@ -37,10 +45,8 @@ function draw() {
 // make the main menu
 function mainMenu() {
   background(backgroundColor);
-  // fill("white");
   textFont("georgia", 50);
   text("Escape From The Castle", width/2 - 240, height/3);
-  // image(banner1, width/2 - 125, height/2 - 75, 500, 400);
   rect(width/2 - 125, height/2 - 75, 250, 150);
   fill("black");
   text("Play", width/2 - 55, height/2 + 15);
@@ -84,7 +90,45 @@ function keyPressed() {
   }
 }
 
+function doorScreen() {
+  displayGrid(grid);
+}
 
+function create2DArray(cols, rows) {
+  let emptyArray = [];
+  for (let y=0; y<rows; y++) {
+    emptyArray.push([]);
+    for (let x=0; x<cols;x++) {
+      if (random(100) < 50) {
+        emptyArray[y].push(0);
+      }
+      else if (random(100) > 50) {
+        emptyArray[y].push(1);
+      }
+      else if (random(150) > 100) {
+        emptyArray[y].push(2);
+      }
+    }
+  }
+  return emptyArray;
+}
+
+function displayGrid(grid) {
+  for (let y=0; y<rows; y++) {
+    for (let x=0; x<cols; x++) {
+      if(grid[x][y] === 0) {
+        image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      }
+      else if (grid[x][y] === 1) {
+        image(castleWallImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      }
+      else if(grid[x][y] === 2) {
+        image(castleDoorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);  
+      }
+      rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+    }
+  }
+}
 
 // To Do (somewhat in order?)
 
