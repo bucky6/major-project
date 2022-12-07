@@ -5,18 +5,21 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let rows = 25;
-let cols = 40;
+let rows = 11;
+let cols = 10;
 let grid, cellWidth, cellHeight;
 let state = "mainMenu";
 let backgroundColor = 25;
-let nightCastleImage, castleDoorImage, castleWallImage, dirtFloorImage;
+let nightCastleImage, castleDoorImage, castleWallImage, dirtFloorImage, dungeonWallImage, dungeonWallVegetationImage;
+let playerX, playerY;
 
 function preload() {
   nightCastleImage = loadImage("assets/nightCastle.png");
   castleDoorImage = loadImage("assets/castleDoor.png");
   castleWallImage = loadImage("assets/castleWall.png");
   dirtFloorImage = loadImage("assets/dirtFloor.png");
+  dungeonWallImage = loadImage("assets/dungeonWall.png");
+  dungeonWallVegetationImage = loadImage("assets/dungeonWallVegetation.png");
 }
 
 function setup() {
@@ -24,6 +27,7 @@ function setup() {
   cellWidth = width/cols;
   cellHeight = height/rows; 
   grid = create2DArray(cols, rows);
+  grid[playerY][playerX] = 9;
 }
 
 function draw() {
@@ -41,6 +45,19 @@ function draw() {
     doorScreen();
   }
 }
+
+// function keyPressed() {
+//   if (keyCode === RIGHT_ARROW) {
+//     if (grid[playerY][playerX+1] === 0) {
+//       grid[playerY][playerX] = 0;
+
+//       playerX++;
+
+//       grid[playerY][playerX] = 9;
+//     }
+//   }
+// }
+
 
 // make the main menu
 function mainMenu() {
@@ -116,16 +133,19 @@ function create2DArray(cols, rows) {
 function displayGrid(grid) {
   for (let y=0; y<rows; y++) {
     for (let x=0; x<cols; x++) {
-      if(grid[x][y] === 0) {
-        image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      }
-      else if (grid[x][y] === 1) {
-        image(castleWallImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      }
-      else if(grid[x][y] === 2) {
-        image(castleDoorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);  
-      }
-      rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      console.log(x, y);
+      // if(grid[x][y] === 0) {
+      image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      // }
+      // else if (grid[x][y] === 1) {
+      //   image(castleWallImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      // }
+      // else if(grid[x][y] === 2) {
+      //   image(castleDoorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);  
+      // }
+      // else {
+      //   rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      // }
     }
   }
 }
