@@ -5,13 +5,14 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let rows = 11;
-let cols = 10;
+let rows = 20;
+let cols = 30;
 let grid, cellWidth, cellHeight;
 let state = "mainMenu";
 let backgroundColor = 25;
-let nightCastleImage, castleDoorImage, castleWallImage, dirtFloorImage, dungeonWallImage, dungeonWallVegetationImage;
-let playerX, playerY;
+let nightCastleImage, castleDoorImage, castleWallImage, dirtFloorImage, dungeonWallImage, dungeonWallVegetationImage, characterImage;
+let playerX = 0;
+let playerY = 0;
 
 function preload() {
   nightCastleImage = loadImage("assets/nightCastle.png");
@@ -20,6 +21,7 @@ function preload() {
   dirtFloorImage = loadImage("assets/dirtFloor.png");
   dungeonWallImage = loadImage("assets/dungeonWall.png");
   dungeonWallVegetationImage = loadImage("assets/dungeonWallVegetation.png");
+  characterImage = loadImage("assets/character.png");
 }
 
 function setup() {
@@ -45,19 +47,6 @@ function draw() {
     doorScreen();
   }
 }
-
-// function keyPressed() {
-//   if (keyCode === RIGHT_ARROW) {
-//     if (grid[playerY][playerX+1] === 0) {
-//       grid[playerY][playerX] = 0;
-
-//       playerX++;
-
-//       grid[playerY][playerX] = 9;
-//     }
-//   }
-// }
-
 
 // make the main menu
 function mainMenu() {
@@ -99,12 +88,34 @@ function mousePressed() {
 }
 
 function keyPressed() {
+  //screen switching
   if (state === "intro" && keyCode === 32) {
     state = "castle";
   }
   else if (state === "castle" && keyCode === 32) {
     state = "door";
   }
+
+  // //player movement
+  // else if (keyCode === RIGHT_ARROW) {
+  //   if (grid[playerY][playerX+1] === 0) {
+  //     grid[playerY][playerX] = 0;
+
+  //     playerX++;
+
+  //     grid[playerY][playerX] = 9;
+  //   }
+  // }
+
+  // if (keyCode === LEFT_ARROW) {
+  //   if (grid[playerY][playerX-1] === 0) {
+  //     grid[playerY][playerX] = 0;
+      
+  //     playerX--;
+
+  //     grid[playerY][playerX] = 9;
+  //   }
+  // }
 }
 
 function doorScreen() {
@@ -122,9 +133,9 @@ function create2DArray(cols, rows) {
       else if (random(100) > 50) {
         emptyArray[y].push(1);
       }
-      else if (random(150) > 100) {
-        emptyArray[y].push(2);
-      }
+      // else if (random(150) > 100) {
+      //   emptyArray[y].push(2);
+      // }
     }
   }
   return emptyArray;
@@ -133,18 +144,21 @@ function create2DArray(cols, rows) {
 function displayGrid(grid) {
   for (let y=0; y<rows; y++) {
     for (let x=0; x<cols; x++) {
-      console.log(x, y);
-      // if(grid[x][y] === 0) {
-      image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      // }
-      // else if (grid[x][y] === 1) {
-      //   image(castleWallImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      // }
-      // else if(grid[x][y] === 2) {
-      //   image(castleDoorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);  
-      // }
+      // console.log(x, y);
+      if(grid[y][x] === 0) {
+        image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      }
+      else if (grid[y][x] === 1) {
+        image(castleWallImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      }
+      else if(grid[y][x] === 2) {
+        image(castleDoorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);  
+      }
+      else if (grid[y][x] === 9) {
+        image(characterImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      }
       // else {
-      //   rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      // rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       // }
     }
   }
