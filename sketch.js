@@ -5,8 +5,8 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let rows = 20;
-let cols = 30;
+let rows = 19;
+let cols = 35;
 let grid, cellWidth, cellHeight;
 let state = "mainMenu";
 let backgroundColor = 25;
@@ -26,8 +26,8 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  cellWidth = width/cols;
-  cellHeight = height/rows; 
+  cellWidth = width/cols*2;
+  cellHeight = height/rows*2; 
   grid = create2DArray(cols, rows);
   grid[playerY][playerX] = 9;
 }
@@ -51,7 +51,7 @@ function draw() {
 // make the main menu
 function mainMenu() {
   background(backgroundColor);
-  textFont("georgia", 50);
+  textFont("Dungeon Regular", 50);
   text("Escape From The Castle", width/2 - 240, height/3);
   rect(width/2 - 125, height/2 - 75, 250, 150);
   fill("black");
@@ -72,8 +72,8 @@ function introScreen() {
   text("Despite the many unnerving things you've heard about this castle and it resident(s), money is money.", width/2 - 650, height/3 + 75);
   text("After a long day's journey, you have arrived.", width/2 - 300, height/3 + 150);
   text("Press space to continue", width/2 - 150, height/3 + 450);
-  textFont("georgia", 10);
-  textFont("georgia", 30);
+  textFont("Dungeon Regular", 10);
+  textFont("Dungeon Regular", 30);
 }
 
 function mouseInsideRect(left, right, top, bottom) {
@@ -96,26 +96,46 @@ function keyPressed() {
     state = "door";
   }
 
-  // //player movement
-  // else if (keyCode === RIGHT_ARROW) {
-  //   if (grid[playerY][playerX+1] === 0) {
-  //     grid[playerY][playerX] = 0;
+  //player movement
+  else if (keyCode === RIGHT_ARROW) {
+    if (grid[playerY][playerX+1] === 0) {
+      grid[playerY][playerX] = 0;
 
-  //     playerX++;
+      playerX++;
 
-  //     grid[playerY][playerX] = 9;
-  //   }
-  // }
+      grid[playerY][playerX] = 9;
+    }
+  }
 
-  // if (keyCode === LEFT_ARROW) {
-  //   if (grid[playerY][playerX-1] === 0) {
-  //     grid[playerY][playerX] = 0;
+  if (keyCode === LEFT_ARROW) {
+    if (grid[playerY][playerX-1] === 0) {
+      grid[playerY][playerX] = 0;
       
-  //     playerX--;
+      playerX--;
 
-  //     grid[playerY][playerX] = 9;
-  //   }
-  // }
+      grid[playerY][playerX] = 9;
+    }
+  }
+
+  if (keyCode === UP_ARROW) {
+    if (grid[playerY-1][playerX] === 0) {
+      grid[playerY][playerX] = 0;
+      
+      playerY--;
+
+      grid[playerY][playerX] = 9;
+    }
+  }
+
+  if (keyCode === DOWN_ARROW) {
+    if (grid[playerY+1][playerX] === 0) {
+      grid[playerY][playerX] = 0;
+      
+      playerY++;
+
+      grid[playerY][playerX] = 9;
+    }
+  }
 }
 
 function doorScreen() {
@@ -127,12 +147,12 @@ function create2DArray(cols, rows) {
   for (let y=0; y<rows; y++) {
     emptyArray.push([]);
     for (let x=0; x<cols;x++) {
-      if (random(100) < 50) {
-        emptyArray[y].push(0);
-      }
-      else if (random(100) > 50) {
-        emptyArray[y].push(1);
-      }
+      // if (random(100) < 50) {
+      emptyArray[y].push(0);
+      // }
+      // else if (random(100) > 50) {
+      //   emptyArray[y].push(1);
+      // }
       // else if (random(150) > 100) {
       //   emptyArray[y].push(2);
       // }
@@ -144,22 +164,23 @@ function create2DArray(cols, rows) {
 function displayGrid(grid) {
   for (let y=0; y<rows; y++) {
     for (let x=0; x<cols; x++) {
-      // console.log(x, y);
-      if(grid[y][x] === 0) {
+      if(grid[y][x] === 1) {
         image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
-      else if (grid[y][x] === 1) {
+      else if (grid[y][x] === 2) {
         image(castleWallImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
-      else if(grid[y][x] === 2) {
+      else if(grid[y][x] === 3) {
         image(castleDoorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);  
       }
       else if (grid[y][x] === 9) {
+        image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
         image(characterImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
-      // else {
-      // rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      // }
+      else if (grid[y][x] === 0) {
+        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        fill("black");
+      }
     }
   }
 }
@@ -167,15 +188,18 @@ function displayGrid(grid) {
 // To Do (somewhat in order?)
 
 // Figure out story and endings
-// Write intro
-// Make start menu
-// Make game environment
-// Add texture pack to game
-// Add player's character
-// Character movement
+// Make game environment (in progress)
 // Enemies and damage
 // NPC's
 // Text boxes
 // Text input from player
 // Sound effects
 // Items for player to pick up
+
+// Done
+
+// Write intro
+// Make start menu
+// Add player's character
+// Character movement
+// Add texture pack to game (adding as needed)
