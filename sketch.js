@@ -6,11 +6,12 @@
 // - describe what you did to take this project "above and beyond"
 
 let rows = 19;
-let cols = 35;
+let cols = 38;
 let grid, cellWidth, cellHeight;
 let state = "mainMenu";
 let backgroundColor = 25;
 let nightCastleImage, castleDoorImage, castleWallImage, dirtFloorImage, dungeonWallImage, dungeonWallVegetationImage, characterImage;
+let mainDoorGrid;
 let playerX = 0;
 let playerY = 0;
 
@@ -22,6 +23,7 @@ function preload() {
   dungeonWallImage = loadImage("assets/dungeonWall.png");
   dungeonWallVegetationImage = loadImage("assets/dungeonWallVegetation.png");
   characterImage = loadImage("assets/character.png");
+  mainDoorGrid = "assets/mainDoor.txt";
 }
 
 function setup() {
@@ -174,7 +176,9 @@ function displayGrid(grid) {
         image(castleDoorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);  
       }
       else if (grid[y][x] === 9) {
-        image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        // image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+        fill("black");
         image(characterImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
       }
       else if (grid[y][x] === 0) {
