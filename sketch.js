@@ -14,6 +14,8 @@ let nightCastleImage, castleDoorImage, castleWallImage, dirtFloorImage, dungeonW
 let mainDoorGrid;
 let playerX = 0;
 let playerY = 0;
+let lines;
+let cellsHigh, cellsWide;
 
 function preload() {
   nightCastleImage = loadImage("assets/nightCastle.png");
@@ -23,14 +25,20 @@ function preload() {
   dungeonWallImage = loadImage("assets/dungeonWall.png");
   dungeonWallVegetationImage = loadImage("assets/dungeonWallVegetation.png");
   characterImage = loadImage("assets/character.png");
-  mainDoorGrid = "assets/mainDoor.txt";
+
+  mainDoorGrid = "mainDoor.txt";
+  lines = loadStrings(mainDoorGrid);
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+  cellsHigh = lines.length;
+  cellsWide = lines[0].length;
+
   cellWidth = width/cols*2;
   cellHeight = height/rows*2; 
-  grid = create2DArray(cols, rows);
+  grid = create2DArray(cellsWide, cellsHigh);
   grid[playerY][playerX] = 9;
 }
 
@@ -149,15 +157,7 @@ function create2DArray(cols, rows) {
   for (let y=0; y<rows; y++) {
     emptyArray.push([]);
     for (let x=0; x<cols;x++) {
-      // if (random(100) < 50) {
       emptyArray[y].push(0);
-      // }
-      // else if (random(100) > 50) {
-      //   emptyArray[y].push(1);
-      // }
-      // else if (random(150) > 100) {
-      //   emptyArray[y].push(2);
-      // }
     }
   }
   return emptyArray;
