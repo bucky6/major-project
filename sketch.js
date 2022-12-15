@@ -149,7 +149,7 @@ function keyPressed() {
 }
 
 function doorScreen() {
-  displayGrid(grid);
+  displayGrid(lines);
 }
 
 function create2DArray(cols, rows) {
@@ -163,31 +163,49 @@ function create2DArray(cols, rows) {
   return emptyArray;
 }
 
-function displayGrid(grid) {
+function displayGrid() {
   for (let y=0; y<rows; y++) {
     for (let x=0; x<cols; x++) {
-      if(grid[y][x] === 1) {
-        image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      }
-      else if (grid[y][x] === 2) {
-        image(castleWallImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      }
-      else if(grid[y][x] === 3) {
-        image(castleDoorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);  
-      }
-      else if (grid[y][x] === 9) {
-        // image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-        fill("black");
-        image(characterImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      }
-      else if (grid[y][x] === 0) {
-        rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-        fill("black");
-      }
+      showTile(grid[y][x], x, y);
+      // if(grid[y][x] === 1) {
+      //   image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      // }
+      // else if (grid[y][x] === 2) {
+      //   image(castleWallImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      // }
+      // else if(grid[y][x] === 3) {
+      //   image(castleDoorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);  
+      // }
+      // else if (grid[y][x] === 9) {
+      //   // image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      //   rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      //   fill("black");
+      //   image(characterImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      // }
+      // else if (grid[y][x] === 0) {
+      //   rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      //   fill("black");
     }
   }
 }
+
+
+function showTile(location, x, y) {
+  if (location === "0") {
+    rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+    fill("black");
+  }
+  else if (location === "1") {
+    image(dirtFloorImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+  }
+  else if (location === "2") {
+    image(castleWallImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+  }
+  else if (location === "3") {
+    image(castleDoorImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+  }
+}
+
 
 // To Do (somewhat in order?)
 
