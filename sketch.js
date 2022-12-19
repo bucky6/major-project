@@ -36,8 +36,8 @@ function setup() {
   cellsHigh = lines.length;
   cellsWide = lines[0].length;
 
-  cellWidth = width/cols*2;
-  cellHeight = height/rows*2; 
+  cellWidth = width/cols;
+  cellHeight = height/rows; 
   grid = create2DArray(cellsWide, cellsHigh);
   grid[playerY][playerX] = 9;
 }
@@ -108,38 +108,38 @@ function keyPressed() {
 
   //player movement
   else if (keyCode === RIGHT_ARROW) {
-    if (grid[playerY][playerX+1] === 0) {
-      grid[playerY][playerX] = 0;
+    if (lines[playerY][playerX+1] === 0) {
+      lines[playerY][playerX] = 0;
 
       playerX++;
 
-      grid[playerY][playerX] = 9;
+      lines[playerY][playerX] = 9;
     }
   }
 
   if (keyCode === LEFT_ARROW) {
-    if (grid[playerY][playerX-1] === 0) {
-      grid[playerY][playerX] = 0;
+    if (lines[playerY][playerX-1] === 0) {
+      lines[playerY][playerX] = 0;
       
       playerX--;
 
-      grid[playerY][playerX] = 9;
+      lines[playerY][playerX] = 9;
     }
   }
 
   if (keyCode === UP_ARROW) {
-    if (grid[playerY-1][playerX] === 0) {
-      grid[playerY][playerX] = 0;
+    if (lines[playerY-1][playerX] === 0) {
+      lines[playerY][playerX] = 0;
       
       playerY--;
 
-      grid[playerY][playerX] = 9;
+      lines[playerY][playerX] = 9;
     }
   }
 
   if (keyCode === DOWN_ARROW) {
-    if (grid[playerY+1][playerX] === 0) {
-      grid[playerY][playerX] = 0;
+    if (lines[playerY+1][playerX] === 0) {
+      lines[playerY][playerX] = 0;
       
       playerY++;
 
@@ -163,28 +163,10 @@ function create2DArray(cols, rows) {
   return emptyArray;
 }
 
-function displayGrid() {
+function displayGrid(grid) {
   for (let y=0; y<rows; y++) {
     for (let x=0; x<cols; x++) {
       showTile(grid[y][x], x, y);
-      // if(grid[y][x] === 1) {
-      //   image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      // }
-      // else if (grid[y][x] === 2) {
-      //   image(castleWallImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      // }
-      // else if(grid[y][x] === 3) {
-      //   image(castleDoorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);  
-      // }
-      // else if (grid[y][x] === 9) {
-      //   // image(dirtFloorImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      //   rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      //   fill("black");
-      //   image(characterImage, x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      // }
-      // else if (grid[y][x] === 0) {
-      //   rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
-      //   fill("black");
     }
   }
 }
@@ -204,6 +186,11 @@ function showTile(location, x, y) {
   else if (location === "3") {
     image(castleDoorImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
   }
+  else if (location === "9") {
+    image(characterImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+    image(characterImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+  }
+  
 }
 
 
