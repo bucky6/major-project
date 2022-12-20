@@ -10,7 +10,7 @@ let cols = 38;
 let grid, cellWidth, cellHeight;
 let state = "mainMenu";
 let backgroundColor = 25;
-let nightCastleImage, castleDoorImage, castleWallImage, dirtFloorImage, dungeonWallImage, dungeonWallVegetationImage, characterImage;
+let nightCastleImage, castleDoorImage, castleWallImage, dirtFloorImage, dungeonWallImage, dungeonWallVegetationImage, characterImage, castleFloorImage;
 let mainDoorGrid;
 let playerX = 0;
 let playerY = 0;
@@ -25,6 +25,7 @@ function preload() {
   dungeonWallImage = loadImage("assets/dungeonWall.png");
   dungeonWallVegetationImage = loadImage("assets/dungeonWallVegetation.png");
   characterImage = loadImage("assets/character.png");
+  castleFloorImage = loadImage("assets/castleFloor.png");
 
   mainDoorGrid = "mainDoor.txt";
   lines = loadStrings(mainDoorGrid);
@@ -108,42 +109,42 @@ function keyPressed() {
 
   //player movement
   else if (keyCode === RIGHT_ARROW) {
-    if (lines[playerY][playerX+1] === 0) {
-      lines[playerY][playerX] = 0;
+    if (grid[playerY][playerX+1] === 0) {
+      location[playerY][playerX] = 0;
 
       playerX++;
 
-      lines[playerY][playerX] = 9;
+      location[playerY][playerX] = 9;
     }
   }
 
   if (keyCode === LEFT_ARROW) {
-    if (lines[playerY][playerX-1] === 0) {
-      lines[playerY][playerX] = 0;
+    if (grid[playerY][playerX-1] === 0) {
+      location[playerY][playerX] = 0;
       
       playerX--;
 
-      lines[playerY][playerX] = 9;
+      location[playerY][playerX] = 9;
     }
   }
 
   if (keyCode === UP_ARROW) {
-    if (lines[playerY-1][playerX] === 0) {
-      lines[playerY][playerX] = 0;
+    if (grid[playerY-1][playerX] === 0) {
+      location[playerY][playerX] = 0;
       
       playerY--;
 
-      lines[playerY][playerX] = 9;
+      location[playerY][playerX] = 9;
     }
   }
 
   if (keyCode === DOWN_ARROW) {
-    if (lines[playerY+1][playerX] === 0) {
-      lines[playerY][playerX] = 0;
+    if (grid[playerY+1][playerX] === 0) {
+      location[playerY][playerX] = 0;
       
       playerY++;
 
-      grid[playerY][playerX] = 9;
+      location[playerY][playerX] = 9;
     }
   }
 }
@@ -186,9 +187,12 @@ function showTile(location, x, y) {
   else if (location === "3") {
     image(castleDoorImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
   }
+  else if (location === "4") {
+    image(castleFloorImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+  }
   else if (location === "9") {
     image(characterImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-    image(characterImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+    // image(dirtFloorImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
   }
   
 }
