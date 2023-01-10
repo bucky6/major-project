@@ -10,8 +10,7 @@ let cols = 38;
 let grid, cellWidth, cellHeight;
 let state = "mainMenu";
 let backgroundColor = 25;
-let nightCastleImage, castleDoorImage, castleWallImage, dirtFloorImage, dungeonWallImage, dungeonWallVegetationImage, characterImage, castleFloorImage;
-let carpetImage, lockedCastleDoorImage, upstairsCastleImage;
+let nightCastleImage, castleDoorImage;
 let mainDoorGrid, entryHallGrid;
 let playerX = 0;
 let playerY = 0;
@@ -20,32 +19,11 @@ let cellsHigh, cellsWide;
 
 function preload() {
   nightCastleImage = loadImage("assets/nightCastle.png");
-  castleDoorImage = loadImage("assets/castleDoor.png");
-  castleWallImage = loadImage("assets/castleWall.png");
-  dirtFloorImage = loadImage("assets/dirtFloor.png");
-  dungeonWallImage = loadImage("assets/dungeonWall.png");
-  dungeonWallVegetationImage = loadImage("assets/dungeonWallVegetation.png");
-  characterImage = loadImage("assets/character.png");
-  castleFloorImage = loadImage("assets/castleFloor.png");
-  carpetImage = loadImage("assets/carpet.png");
-  lockedCastleDoorImage = loadImage("assets/lockedCastleDoor.png");
-  upstairsCastleImage = loadImage("assets/castleUpstairs.png");
-
-  mainDoorGrid = "mainDoor.txt";
-  entryHallGrid = "entryHall.txt";
-  lines = loadStrings(entryHallGrid);
+  castleDoorImage = loadImage("assets/doorScreen.png");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
-  cellsHigh = lines.length;
-  cellsWide = lines[0].length;
-
-  cellWidth = width/cols;
-  cellHeight = height/rows; 
-  grid = create2DArray(cellsWide, cellsHigh);
-  grid[playerY][playerX] = 9;
 }
 
 function draw() {
@@ -61,6 +39,13 @@ function draw() {
   }
   if (state === "door") {
     doorScreen();
+  }
+  if (state === "doorLook") {
+    image(castleDoorImage, 0, 0, width, height);
+    text("You didn't find anything. What would you like to do?", width/2 - 400, height/2 + 100);
+    text("A. Look around", width/2 - 200, height/2 + 150);
+    text("B. Knock on the door", width/2 - 200, height/2 + 200);
+    text("C. Walk in", width/2 - 200, height/2 + 250);
   }
 }
 
@@ -111,105 +96,26 @@ function keyPressed() {
   else if (state === "castle" && keyCode === 32) {
     state = "door";
   }
-
-  //player movement
-  else if (keyCode === RIGHT_ARROW) {
-    if (grid[playerY][playerX+1] === 0) {
-      grid[playerY][playerX] = 0;
-
-      playerX++;
-
-      grid[playerY][playerX] = 9;
-    }
-  }
-
-  if (keyCode === LEFT_ARROW) {
-    if (grid[playerY][playerX-1] === 0) {
-      grid[playerY][playerX] = 0;
-      
-      playerX--;
-
-      grid[playerY][playerX] = 9;
-    }
-  }
-
-  if (keyCode === UP_ARROW) {
-    if (grid[playerY-1][playerX] === 0) {
-      grid[playerY][playerX] = 0;
-      
-      playerY--;
-
-      grid[playerY][playerX] = 9;
-    }
-  }
-
-  if (keyCode === DOWN_ARROW) {
-    if (grid[playerY+1][playerX] === 0) {
-      grid[playerY][playerX] = 0;
-      
-      playerY++;
-
-      grid[playerY][playerX] = 9;
-    }
+  else if (state === "door" && keyCode === 65) {
+    state = "doorLook";
   }
 }
 
 function doorScreen() {
-  displayGrid(lines);
-}
+  image(castleDoorImage, 0, 0, width, height);
+  text("What would you like to do?", width/2 - 200, height/2 + 100);
+  text("A. Look around", width/2 - 200, height/2 + 150);
+  text("B. Knock on the door", width/2 - 200, height/2 + 200);
+  text("C. Walk in", width/2 - 200, height/2 + 250);
 
-function create2DArray(cols, rows) {
-  let emptyArray = [];
-  for (let y=0; y<rows; y++) {
-    emptyArray.push([]);
-    for (let x=0; x<cols;x++) {
-      emptyArray[y].push(0);
-    }
-  }
-  return emptyArray;
-}
+  // function keyPressed() {
 
-function displayGrid(grid) {
-  for (let y=0; y<rows; y++) {
-    for (let x=0; x<cols; x++) {
-      showTile(grid[y][x], x, y);
-    }
-  }
+  // }
 }
 
 
-function showTile(location, x, y) {
-  if (location === "0") {
-    rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-    fill("black");
-  }
-  else if (location === "1") {
-    image(dirtFloorImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-  }
-  else if (location === "2") {
-    image(castleWallImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-  }
-  else if (location === "3") {
-    image(castleDoorImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-  }
-  else if (location === "4") {
-    image(castleFloorImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-  }
-  else if (location === "5") {
-    image(carpetImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-  }
-  else if (location === "6") {
-    image(lockedCastleDoorImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-  }
-  else if (location === "7") {
-    image(upstairsCastleImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-  }
-  else if (location === "9") {
-    image(characterImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-    // image(dirtFloorImage, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-  }
-  
-}
+
+
 
 
 // To Do (somewhat in order?)
