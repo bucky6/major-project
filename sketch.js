@@ -5,21 +5,17 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let rows = 19;
-let cols = 38;
-let grid, cellWidth, cellHeight;
 let state = "mainMenu";
 let backgroundColor = 25;
-let nightCastleImage, castleDoorImage;
-let mainDoorGrid, entryHallGrid;
-let playerX = 0;
-let playerY = 0;
-let lines;
-let cellsHigh, cellsWide;
+let nightCastleImage, castleDoorImage, doorOpenImage, castleHallImage;
+let doorKnockSound;
 
 function preload() {
   nightCastleImage = loadImage("assets/nightCastle.png");
   castleDoorImage = loadImage("assets/doorScreen.png");
+  doorKnockSound = loadSound("assets/doorKnocking.mp4");
+  doorOpenImage = loadImage("assets/doorOpenScreen.png");
+  castleHallImage = loadImage("assets/castleHall.png");
 }
 
 function setup() {
@@ -38,14 +34,34 @@ function draw() {
     image(nightCastleImage, 0, 0, width, height);
   }
   if (state === "door") {
-    doorScreen();
+    image(castleDoorImage, 0, 0, width, height);
+    text("What would you like to do?", width/2 - 500, height/2 + 100);
+    text("A. Look around", width/2 - 500, height/2 + 150);
+    text("B. Knock on the door", width/2 - 500, height/2 + 200);
+    text("C. Walk in", width/2 - 500, height/2 + 250);
   }
   if (state === "doorLook") {
     image(castleDoorImage, 0, 0, width, height);
-    text("You didn't find anything. What would you like to do?", width/2 - 400, height/2 + 100);
-    text("A. Look around", width/2 - 200, height/2 + 150);
-    text("B. Knock on the door", width/2 - 200, height/2 + 200);
-    text("C. Walk in", width/2 - 200, height/2 + 250);
+    noStroke();
+    rect(width/2 - 725, height/2 + 50, 700, 250);
+    fill("black");
+    text("You didn't find anything. What would you like to do?", width/2 - 700, height/2 + 100);
+    text("A. Look around", width/2 - 500, height/2 + 150);
+    text("B. Knock on the door", width/2 - 500, height/2 + 200);
+    text("C. Walk in", width/2 - 500, height/2 + 250);
+    fill("gray");
+  }
+  if (state === "doorKnock") {
+    image(doorOpenImage, 0, 0, width, height);
+    rect(width/2 - 725, height/2 -25, 700, 100);
+    noStroke();
+    fill("black");
+    text("The door slowly swings open just before your hand", width/2 - 700, height/2 + 25);
+    text("makes contact. Press space to walk in.", width/2 - 650, height/2 + 50);
+    fill("gray");
+  }
+  if (state === "hall") {
+    image(castleHallImage, 0, 0, width, height);
   }
 }
 
@@ -99,24 +115,14 @@ function keyPressed() {
   else if (state === "door" && keyCode === 65) {
     state = "doorLook";
   }
+  else if (state === "door" && keyCode === 66 || state === "doorLook" && keyCode === 66) {
+    state = "doorKnock";
+    doorKnockSound.play();
+  }
+  else if (state === "doorKnock" && keyCode === 32) {
+    state = "hall";
+  }
 }
-
-function doorScreen() {
-  image(castleDoorImage, 0, 0, width, height);
-  text("What would you like to do?", width/2 - 200, height/2 + 100);
-  text("A. Look around", width/2 - 200, height/2 + 150);
-  text("B. Knock on the door", width/2 - 200, height/2 + 200);
-  text("C. Walk in", width/2 - 200, height/2 + 250);
-
-  // function keyPressed() {
-
-  // }
-}
-
-
-
-
-
 
 // To Do (somewhat in order?)
 
