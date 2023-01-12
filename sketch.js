@@ -7,7 +7,7 @@
 
 let state = "mainMenu";
 let backgroundColor = 25;
-let nightCastleImage, castleDoorImage, doorOpenImage, castleHallImage;
+let nightCastleImage, castleDoorImage, doorOpenImage, castleHallImage, servantImage, servantAnimation;
 let doorKnockSound;
 
 function preload() {
@@ -16,6 +16,8 @@ function preload() {
   doorKnockSound = loadSound("assets/doorKnocking.mp4");
   doorOpenImage = loadImage("assets/doorOpenScreen.png");
   castleHallImage = loadImage("assets/castleHall.png");
+  servantImage = loadImage("assets/servant.png");
+  servantAnimation = loadImage("assets/servantGif.webp");
 }
 
 function setup() {
@@ -35,10 +37,14 @@ function draw() {
   }
   if (state === "door") {
     image(castleDoorImage, 0, 0, width, height);
+    noStroke();
+    rect(width/2 - 550, height/2 + 50, 550, 250);
+    fill("black");
     text("What would you like to do?", width/2 - 500, height/2 + 100);
     text("A. Look around", width/2 - 500, height/2 + 150);
     text("B. Knock on the door", width/2 - 500, height/2 + 200);
     text("C. Walk in", width/2 - 500, height/2 + 250);
+    fill("gray");
   }
   if (state === "doorLook") {
     image(castleDoorImage, 0, 0, width, height);
@@ -62,6 +68,41 @@ function draw() {
   }
   if (state === "hall") {
     image(castleHallImage, 0, 0, width, height);
+    rect(width/2 - 300, height/2 + 50, 100, 50);
+    noStroke();
+    fill("black");
+    text("Hello?", width/2 - 290, height/2 + 80);
+    fill("gray");
+    image(servantImage, width/4*2.5, height/2 + 100, 160, 160);
+  }
+  if (state === "hall2") {
+    image(castleHallImage, 0, 0, width, height);
+    rect(width/2 - 300, height/2 + 50, 175, 50);
+    noStroke();
+    fill("black");
+    text("Oh, it's you.", width/2 - 290, height/2 + 80);
+    fill("gray");
+    image(servantImage, width/4*2.5, height/2 + 100, 160, 160);
+  }
+  if (state === "hall3") {
+    image(castleHallImage, 0, 0, width, height);
+    rect(width/2 - 300, height/2 + 50, 260, 160);
+    noStroke();
+    fill("black");
+    text("Come this way.", width/2 - 290, height/2 + 80);
+    text("The master will be", width/2 - 290, height/2 + 130);
+    text("pleased you're here.", width/2 - 290, height/2 + 180);
+    fill("gray");
+    image(servantImage, width/4*2.5, height/2 + 100, 160, 160);
+  }
+  if (state === "hall4") {
+    image(castleHallImage, 0, 0, width, height);
+    rect(width/2 - 300, height/2 + 50, 175, 50);
+    noStroke();
+    fill("black");
+    text("Quickly now.", width/2 - 290, height/2 + 80);
+    fill("gray");
+    image(servantAnimation, width/4*2.5, height/2 + 100, 160, 160);
   }
 }
 
@@ -88,7 +129,7 @@ function introScreen() {
   text("You are a real estate agent. You've been called away to a strange castle in the country to speak with the owner.", width/2 - 700, height/3);
   text("Despite the many unnerving things you've heard about this castle and it resident(s), money is money.", width/2 - 650, height/3 + 75);
   text("After a long day's journey, you have arrived.", width/2 - 300, height/3 + 150);
-  text("Press space to continue", width/2 - 150, height/3 + 450);
+  text("Always press space to continue", width/2 - 200, height/3 + 450);
   textFont("Dungeon Regular", 10);
   textFont("Dungeon Regular", 30);
 }
@@ -111,6 +152,7 @@ function keyPressed() {
   }
   else if (state === "castle" && keyCode === 32) {
     state = "door";
+    image(castleDoorImage, 0, 0, width, height);
   }
   else if (state === "door" && keyCode === 65) {
     state = "doorLook";
@@ -121,6 +163,18 @@ function keyPressed() {
   }
   else if (state === "doorKnock" && keyCode === 32) {
     state = "hall";
+  }
+  else if (state === "door" && keyCode === 67 || state === "doorLook" && keyCode === 67) {
+    state = "hall";
+  }
+  else if (state === "hall" && keyCode === 32) {
+    state = "hall2";
+  }
+  else if (state === "hall2" && keyCode === 32) {
+    state = "hall3";
+  }
+  else if (state === "hall3" && keyCode === 32) {
+    state = "hall4";
   }
 }
 
