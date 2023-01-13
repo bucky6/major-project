@@ -7,16 +7,16 @@
 
 let state = "mainMenu";
 let backgroundColor = 25;
-let nightCastleImage, castleDoorImage, doorOpenImage, castleHallImage, servantImage, servantAnimation;
+let nightCastleImage, castleDoorImage, doorLookImage, castleHallImage, masterImage, servantAnimation;
 let doorKnockSound;
 
 function preload() {
   nightCastleImage = loadImage("assets/nightCastle.png");
   castleDoorImage = loadImage("assets/doorScreen.png");
   doorKnockSound = loadSound("assets/doorKnocking.mp4");
-  doorOpenImage = loadImage("assets/doorOpenScreen.png");
+  doorLookImage = loadImage("assets/doorScreen2.png");
   castleHallImage = loadImage("assets/castleHall.png");
-  servantImage = loadImage("assets/servant.png");
+  masterImage = loadImage("assets/master.webp");
   servantAnimation = loadImage("assets/servantGif.webp");
 }
 
@@ -37,28 +37,13 @@ function draw() {
   }
   if (state === "door") {
     image(castleDoorImage, 0, 0, width, height);
-    noStroke();
-    rect(width/2 - 550, height/2 + 50, 550, 250);
-    fill("black");
-    text("What would you like to do?", width/2 - 500, height/2 + 100);
-    text("A. Look around", width/2 - 500, height/2 + 150);
-    text("B. Knock on the door", width/2 - 500, height/2 + 200);
-    text("C. Walk in", width/2 - 500, height/2 + 250);
-    fill("gray");
+
   }
   if (state === "doorLook") {
-    image(castleDoorImage, 0, 0, width, height);
-    noStroke();
-    rect(width/2 - 725, height/2 + 50, 700, 250);
-    fill("black");
-    text("You didn't find anything. What would you like to do?", width/2 - 700, height/2 + 100);
-    text("A. Look around", width/2 - 500, height/2 + 150);
-    text("B. Knock on the door", width/2 - 500, height/2 + 200);
-    text("C. Walk in", width/2 - 500, height/2 + 250);
-    fill("gray");
+    image(doorLookImage, 0, 0, width, height);
   }
   if (state === "doorKnock") {
-    image(doorOpenImage, 0, 0, width, height);
+    image(castleDoorImage, 0, 0, width, height);
     rect(width/2 - 725, height/2 -25, 700, 100);
     noStroke();
     fill("black");
@@ -73,7 +58,7 @@ function draw() {
     fill("black");
     text("Hello?", width/2 - 290, height/2 + 80);
     fill("gray");
-    image(servantImage, width/4*2.5, height/2 + 100, 160, 160);
+    image(servantAnimation, width/4*2.5, height/2 + 100, 160, 160);
   }
   if (state === "hall2") {
     image(castleHallImage, 0, 0, width, height);
@@ -82,7 +67,7 @@ function draw() {
     fill("black");
     text("Oh, it's you.", width/2 - 290, height/2 + 80);
     fill("gray");
-    image(servantImage, width/4*2.5, height/2 + 100, 160, 160);
+    image(servantAnimation, width/4*2.5, height/2 + 100, 160, 160);
   }
   if (state === "hall3") {
     image(castleHallImage, 0, 0, width, height);
@@ -93,7 +78,7 @@ function draw() {
     text("The master will be", width/2 - 290, height/2 + 130);
     text("pleased you're here.", width/2 - 290, height/2 + 180);
     fill("gray");
-    image(servantImage, width/4*2.5, height/2 + 100, 160, 160);
+    image(servantAnimation, width/4*2.5, height/2 + 100, 160, 160);
   }
   if (state === "hall4") {
     image(castleHallImage, 0, 0, width, height);
@@ -103,6 +88,26 @@ function draw() {
     text("Quickly now.", width/2 - 290, height/2 + 80);
     fill("gray");
     image(servantAnimation, width/4*2.5, height/2 + 100, 160, 160);
+  }
+  if (state === "interlude") {
+    background(0);
+    text("You walk with the servant down the long, seemingly unending hallway.", width/2 - 450, 150);
+    text("As you struggle to keep up, the uncomfortable,", width/2 - 300, 200);
+    text("silence becomes unbearable.", width/2 - 250, 250);
+    fill("white");
+
+  }
+  if (state === "interlude2") {
+    background(0);
+    text("A. What's the Master's name?", width/2 - 250, 350);
+    text("B. What's your name?", width/2 - 250, 400);
+    text("C. What's behind that door?", width/2 - 250, 450);
+    text("D. What's that smell?", width/2 - 250, 500);
+    fill("white");
+  }
+  if (state === "interlude3") {
+    background(0);
+    text("That's none of your business.", width/2 - 250, 250);
   }
 }
 
@@ -152,14 +157,13 @@ function keyPressed() {
   }
   else if (state === "castle" && keyCode === 32) {
     state = "door";
-    image(castleDoorImage, 0, 0, width, height);
   }
   else if (state === "door" && keyCode === 65) {
     state = "doorLook";
   }
   else if (state === "door" && keyCode === 66 || state === "doorLook" && keyCode === 66) {
     state = "doorKnock";
-    doorKnockSound.play();
+    doorKnockSound.play(); 
   }
   else if (state === "doorKnock" && keyCode === 32) {
     state = "hall";
@@ -176,6 +180,16 @@ function keyPressed() {
   else if (state === "hall3" && keyCode === 32) {
     state = "hall4";
   }
+  else if (state === "hall4" && keyCode === 32) {
+    state = "interlude";
+  }
+  else if (state === "interlude" && keyCode === 32) {
+    state = "interlude2";
+  }
+  else if (state === "interlude2" && keyCode === 65 || state === "interlude2" && keyCode === 66 || state === "interlude2" && keyCode === 67, state === "interlude2" && keyCode === 68) {
+    state = "interlude3";
+  }
+
 }
 
 // To Do (somewhat in order?)
