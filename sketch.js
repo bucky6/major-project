@@ -7,7 +7,8 @@
 
 let state = "mainMenu";
 let backgroundColor = 25;
-let nightCastleImage, castleDoorImage, doorLookImage, castleHallImage, masterImage, servantAnimation;
+let nightCastleImage, castleDoorImage, doorLookImage, castleHallImage, doorOpenImage, castleHall1, castleHall2, castleHall3, interlude, interlude1, interlude2;
+let diningHall, diningHall1;
 let doorKnockSound;
 
 function preload() {
@@ -16,8 +17,15 @@ function preload() {
   doorKnockSound = loadSound("assets/doorKnocking.mp4");
   doorLookImage = loadImage("assets/doorScreen2.png");
   castleHallImage = loadImage("assets/castleHall.png");
-  masterImage = loadImage("assets/master.webp");
-  servantAnimation = loadImage("assets/servantGif.webp");
+  doorOpenImage = loadImage("assets/openDoor.png");
+  castleHall1 = loadImage("assets/castleHall1.png");
+  castleHall2 = loadImage("assets/castleHall2.png");
+  castleHall3 = loadImage("assets/castleHall3.png");
+  interlude = loadImage("assets/interlude.png");
+  interlude1 = loadImage("assets/interlude1.png");
+  interlude2 = loadImage("assets/interlude2.png");
+  diningHall = loadImage("assets/diningHall.png");
+  diningHall1 = loadImage("assets/diningHall1.png");
 }
 
 function setup() {
@@ -37,77 +45,39 @@ function draw() {
   }
   if (state === "door") {
     image(castleDoorImage, 0, 0, width, height);
-
   }
   if (state === "doorLook") {
     image(doorLookImage, 0, 0, width, height);
   }
   if (state === "doorKnock") {
-    image(castleDoorImage, 0, 0, width, height);
-    rect(width/2 - 725, height/2 -25, 700, 100);
-    noStroke();
-    fill("black");
-    text("The door slowly swings open just before your hand", width/2 - 700, height/2 + 25);
-    text("makes contact. Press space to walk in.", width/2 - 650, height/2 + 50);
-    fill("gray");
+    image(doorOpenImage, 0, 0, width, height);
   }
   if (state === "hall") {
     image(castleHallImage, 0, 0, width, height);
-    rect(width/2 - 300, height/2 + 50, 100, 50);
-    noStroke();
-    fill("black");
-    text("Hello?", width/2 - 290, height/2 + 80);
-    fill("gray");
-    image(servantAnimation, width/4*2.5, height/2 + 100, 160, 160);
   }
   if (state === "hall2") {
-    image(castleHallImage, 0, 0, width, height);
-    rect(width/2 - 300, height/2 + 50, 175, 50);
-    noStroke();
-    fill("black");
-    text("Oh, it's you.", width/2 - 290, height/2 + 80);
-    fill("gray");
-    image(servantAnimation, width/4*2.5, height/2 + 100, 160, 160);
+    image(castleHall1, 0, 0, width, height);
   }
   if (state === "hall3") {
-    image(castleHallImage, 0, 0, width, height);
-    rect(width/2 - 300, height/2 + 50, 260, 160);
-    noStroke();
-    fill("black");
-    text("Come this way.", width/2 - 290, height/2 + 80);
-    text("The master will be", width/2 - 290, height/2 + 130);
-    text("pleased you're here.", width/2 - 290, height/2 + 180);
-    fill("gray");
-    image(servantAnimation, width/4*2.5, height/2 + 100, 160, 160);
+    image(castleHall2, 0, 0, width, height);
   }
   if (state === "hall4") {
-    image(castleHallImage, 0, 0, width, height);
-    rect(width/2 - 300, height/2 + 50, 175, 50);
-    noStroke();
-    fill("black");
-    text("Quickly now.", width/2 - 290, height/2 + 80);
-    fill("gray");
-    image(servantAnimation, width/4*2.5, height/2 + 100, 160, 160);
+    image(castleHall3, 0, 0, width, height);
   }
   if (state === "interlude") {
-    background(0);
-    text("You walk with the servant down the long, seemingly unending hallway.", width/2 - 450, 150);
-    text("As you struggle to keep up, the uncomfortable,", width/2 - 300, 200);
-    text("silence becomes unbearable.", width/2 - 250, 250);
-    fill("white");
-
+    image(interlude, 0, 0, width, height);
   }
   if (state === "interlude2") {
-    background(0);
-    text("A. What's the Master's name?", width/2 - 250, 350);
-    text("B. What's your name?", width/2 - 250, 400);
-    text("C. What's behind that door?", width/2 - 250, 450);
-    text("D. What's that smell?", width/2 - 250, 500);
-    fill("white");
+    image(interlude1, 0, 0, width, height);
   }
   if (state === "interlude3") {
-    background(0);
-    text("That's none of your business.", width/2 - 250, 250);
+    image(interlude2, 0, 0, width, height);
+  }
+  if (state === "diningHall") {
+    image(diningHall, 0, 0, width, height);
+  }
+  if (state === "diningHall1") {
+    image(diningHall1, 0, 0, width, height);
   }
 }
 
@@ -174,7 +144,7 @@ function keyPressed() {
   else if (state === "hall" && keyCode === 32) {
     state = "hall2";
   }
-  else if (state === "hall2" && keyCode === 32) {
+  else if (state === "hall2" && keyCode === 65 ||state === "hall2" && keyCode === 66 || state === "hall2" && keyCode === 67) {
     state = "hall3";
   }
   else if (state === "hall3" && keyCode === 32) {
@@ -183,22 +153,28 @@ function keyPressed() {
   else if (state === "hall4" && keyCode === 32) {
     state = "interlude";
   }
-  else if (state === "interlude" && keyCode === 32) {
+  else if (state === "interlude" && keyCode === 65 ||state === "interlude" && keyCode === 66 || state === "interlude" && keyCode === 67 || state === "interlude" && keyCode === 68) {
     state = "interlude2";
   }
-  else if (state === "interlude2" && keyCode === 65 || state === "interlude2" && keyCode === 66 || state === "interlude2" && keyCode === 67, state === "interlude2" && keyCode === 68) {
+  else if (state === "interlude2" && keyCode === 32) {
     state = "interlude3";
   }
-
+  else if (state === "interlude3" && keyCode === 65 || state === "interlude3" && keyCode === 66 || state === "interlude3" && keyCode === 67) {
+    state = "diningHall";
+  }
+  else if (state === "diningHall" && keyCode === 65 || state === "diningHall" && keyCode === 66 || state === "diningHall" && keyCode === 67) {
+    state = "diningHall1";
+  }
+  else if (state === "diningHall1" && keyCode === 65) {
+    state = "diningHall2";
+  }
 }
 
 // To Do (somewhat in order?)
 
 // Figure out story and endings
-// Make game environment (in progress)
 // Enemies and damage
 // NPC's
-// Text boxes
 // Text input from player
 // Sound effects
 // Items for player to pick up
