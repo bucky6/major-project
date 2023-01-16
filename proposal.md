@@ -11,7 +11,6 @@ I want to make a text-based choose-your-own-adventure dungeon crawler. The playe
 - Starting menu and end screen
 - At least 3 different monsters
 - Boss
-- Box at the bottom of screen to display text
 
 ## Nice to have list
 
@@ -22,11 +21,9 @@ I want to make a text-based choose-your-own-adventure dungeon crawler. The playe
 - Hunger and thirst variables
 - Mini-map
 - Power-ups
-- Separate fighting screens with animations
 - Log of every event that's occurred (Ex. You hit monster, you drank a potion, monster hit you)
 - Different main quests to choose from
 - Side quests
-- Animations for player/monster/NPC movement
 - Weapons and other items for player to pick up
 - Make text for intro scroll down the screen
 - NPC's to interact with
