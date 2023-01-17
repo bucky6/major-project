@@ -7,8 +7,11 @@
 
 let state = "mainMenu";
 let backgroundColor = 25;
+let health = 25;
+let hunger = false;
+let thirst = false;
 let nightCastleImage, castleDoorImage, doorLookImage, castleHallImage, doorOpenImage, castleHall1, castleHall2, castleHall3, interlude, interlude1, interlude2;
-let diningHall, diningHall1;
+let diningHall, diningHall1, diningHall2, diningHall3, diningHall4, diningHall5, trap, dead;
 let doorKnockSound;
 
 function preload() {
@@ -26,6 +29,12 @@ function preload() {
   interlude2 = loadImage("assets/interlude2.png");
   diningHall = loadImage("assets/diningHall.png");
   diningHall1 = loadImage("assets/diningHall1.png");
+  diningHall2 = loadImage("assets/diningHall2.png");
+  diningHall3 = loadImage("assets/diningHall3.png");
+  diningHall4 = loadImage("assets/diningHall4.png");
+  diningHall5 = loadImage("assets/diningHall5.png");
+  trap = loadImage("assets/trap.png");
+  dead = loadImage("assets/dead.jpg");
 }
 
 function setup() {
@@ -78,6 +87,21 @@ function draw() {
   }
   if (state === "diningHall1") {
     image(diningHall1, 0, 0, width, height);
+  }
+  if (state === "diningHall2") {
+    image(diningHall2, 0, 0, width, height);
+  }
+  if (state === "diningHall3") {
+    image(diningHall3, 0, 0, width, height);
+  }
+  if (state === "diningHall4") {
+    image(diningHall4, 0, 0, width, height);
+  }
+  if (state === "trap") {
+    image(trap, 0, 0, width, height);
+  }
+  if (state === "dead") {
+    image(dead, 0, 0, width, height);
   }
 }
 
@@ -168,6 +192,37 @@ function keyPressed() {
   else if (state === "diningHall1" && keyCode === 65) {
     state = "diningHall2";
   }
+  else if (state === "diningHall2" && keyCode === 65) {
+    state = "trap";
+  }
+  else if (state === "trap" && keyCode === 32) {
+    health = random(1, 100);
+    if (health < 50) {
+      state = "dead";
+    }
+    else if (health >= 50) {
+      state = "dungeon";
+      health = 15;
+    }
+  }
+  else if (state === "diningHall2" && keyCode === 66) {
+    state = "diningHall3";
+  }
+  else if (state === "diningHall3" && keyCode === 65 || state === "diningHall3" && keyCode === 66) {
+    state = "diningHall4";
+  }
+  else if (state === "diningHall4" && keyCode === 65 || state === "diningHall4" && keyCode === 66) {
+    state = "diningHall5";
+  }
+  else if (state === "diningHall5" && keyCode === 65) {
+    state === "trap";
+  }
+  else if (state === "diningHall4" && keyCode === 67) {
+    state = "trap";
+  }
+  else if (state === "diningHall3" && keyCode === 67) {
+    state = "trap";
+  }
 }
 
 // To Do (somewhat in order?)
@@ -185,4 +240,3 @@ function keyPressed() {
 // Make start menu
 // Add player's character
 // Character movement
-// Add texture pack to game (adding as needed)
