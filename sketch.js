@@ -10,8 +10,9 @@ let backgroundColor = 25;
 let health = 25;
 let hunger = false;
 let thirst = false;
+let inventory = [];
 let nightCastleImage, castleDoorImage, doorLookImage, castleHallImage, doorOpenImage, castleHall1, castleHall2, castleHall3, interlude, interlude1, interlude2;
-let diningHall, diningHall1, diningHall2, diningHall3, diningHall4, diningHall5, trap, dead;
+let diningHall, diningHall1, diningHall2, diningHall3, diningHall4, diningHall5, trap, dead, dungeon, dungeonLook, dungeonSit, dungeonCall;
 let doorKnockSound;
 
 function preload() {
@@ -35,6 +36,10 @@ function preload() {
   diningHall5 = loadImage("assets/diningHall5.png");
   trap = loadImage("assets/trap.png");
   dead = loadImage("assets/dead.jpg");
+  dungeon = loadImage("assets/dungeon.png");
+  dungeonLook = loadImage("assets/dungeonLook.png");
+  dungeonCall = loadImage("assets/dungeonCall.png");
+  dungeonSit = loadImage("assets/dungeonSit.png");
 }
 
 function setup() {
@@ -97,11 +102,27 @@ function draw() {
   if (state === "diningHall4") {
     image(diningHall4, 0, 0, width, height);
   }
+  if (state === "diningHall5") {
+    image(diningHall5, 0, 0, width, height);
+  }
   if (state === "trap") {
     image(trap, 0, 0, width, height);
   }
   if (state === "dead") {
     image(dead, 0, 0, width, height);
+    // rect(100, 50, );
+  }
+  if (state === "dungeon") {
+    image(dungeon, 0, 0, width, height);
+  }
+  if (state === "dungeonLook") {
+    image(dungeonLook, 0, 0, width, height);
+  }
+  if (state === "dungeonCall") {
+    image(dungeonCall, 0, 0, width, height);
+  }
+  if (state === "dungeonSit") {
+    image(dungeonSit, 0, 0, width, height);
   }
 }
 
@@ -222,6 +243,33 @@ function keyPressed() {
   }
   else if (state === "diningHall3" && keyCode === 67) {
     state = "trap";
+  }
+  else if (state === "diningHall5" && keyCode === 65 || state === "diningHall5" && keyCode === 66 || state === "diningHall5" && keyCode === 67 || state === "diningHall5" && keyCode === 68) {
+    state = "trap";
+  }
+  else if (state === "dungeon" && keyCode === 65) {
+    state = "dungeonLook";
+    inventory.push("dagger");
+    inventory.push("orangePotion") ;
+    inventory.push("food");
+  }
+  else if (state === "dungeon" && keyCode === 66) {
+    state = "dungeonCall";
+  }
+  else if (state === "dungeon" && keyCode === 67) {
+    state = "dungeonSit";
+  }
+  else if (state === "dungeonSit" && keyCode === 65) {
+    state = "dungeonLook";
+  }
+  else if (state === "dungeonSit" && keyCode === 66) {
+    state = "dungeonCall";
+  }
+  else if (state === "dungeonCall" && keyCode === 65) {
+    state = "dungeonLook";
+  }
+  else if (state === "dungeonCall" && keyCode === 67){
+    state = "dungeonSit";
   }
 }
 
