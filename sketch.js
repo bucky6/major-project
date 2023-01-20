@@ -12,7 +12,8 @@ let hunger = false;
 let thirst = false;
 let inventory = [];
 let nightCastleImage, castleDoorImage, doorLookImage, castleHallImage, doorOpenImage, castleHall1, castleHall2, castleHall3, interlude, interlude1, interlude2;
-let diningHall, diningHall1, diningHall2, diningHall3, diningHall4, diningHall5, trap, dead, dungeon, dungeonLook, dungeonSit, dungeonCall;
+let diningHall, diningHall1, diningHall2, diningHall3, diningHall4, diningHall5, trap, dead, dungeon, dungeonLook, dungeonSit, dungeonCall, dungeonCall1, dungeonDoor; 
+let eatFood, eatPoisonFood, orangePotionDrink;
 let doorKnockSound;
 
 function preload() {
@@ -40,6 +41,11 @@ function preload() {
   dungeonLook = loadImage("assets/dungeonLook.png");
   dungeonCall = loadImage("assets/dungeonCall.png");
   dungeonSit = loadImage("assets/dungeonSit.png");
+  dungeonCall1 = loadImage("assets/dungeonCall1.png");
+  eatFood = loadImage("assets/eatFood.png");
+  eatPoisonFood = loadImage("assets/eatPoisonFood.png");
+  orangePotionDrink = loadImage("assets/drinkOrangePotion.png");
+  dungeonDoor= loadImage("assets/dungeonDoor.png");
 }
 
 function setup() {
@@ -123,6 +129,18 @@ function draw() {
   }
   if (state === "dungeonSit") {
     image(dungeonSit, 0, 0, width, height);
+  }
+  if (state === "dungeonCall1") {
+    image(dungeonCall1, 0, 0, width, height);
+  }
+  if (state === "eatPoisonFood") {
+    image(eatPoisonFood, 0, 0, width, height);
+  }
+  if (state === "eatFood") {
+    image(eatFood, 0, 0, width, height);
+  }
+  if (state === "drinkOrangePotion") {
+    image(orangePotionDrink, 0, 0, width, height);
   }
 }
 
@@ -268,8 +286,40 @@ function keyPressed() {
   else if (state === "dungeonCall" && keyCode === 65) {
     state = "dungeonLook";
   }
-  else if (state === "dungeonCall" && keyCode === 67){
+  else if (state === "dungeonCall" && keyCode === 67) {
     state = "dungeonSit";
+  }
+  else if (state === "dungeonLook" && keyCode === 65) {
+    state = "dungeonCall1";
+  }
+  else if (state === "dungeonLook" && keyCode === 66) {
+    state = "orangePotionDrink";
+  }
+  else if (state === "dungeonLook" && keyCode === 67) {
+    health = random(1, 100);
+    if (health < 50) {
+      state = "eatPoisonFood";
+      health = 10;
+    }
+    else if (health >= 50) {
+      state = "drinkOrangePotion";
+      health = 20;
+    }
+  }
+  else if (state === "dungeonLook" && keyCode === 68) {
+    state = "dungeonDoor";
+  }
+  else if (state === "dungeonCall1" && keyCode === 65) {
+    state = "orangePotionDrink";
+  }
+  else if (state === "dungeonCall1" && keyCode === 66) {
+    state = "eatFood";
+  }
+  else if (state === "dungeonCall1" && keyCode === 67) {
+    state = "dungeonDoor";
+  }
+  else if (state === "dungeonCall1" && keyCode === 68) {
+    state = "dungeonSit1";
   }
 }
 
