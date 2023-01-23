@@ -13,7 +13,7 @@ let thirst = false;
 let inventory = [];
 let nightCastleImage, castleDoorImage, doorLookImage, castleHallImage, doorOpenImage, castleHall1, castleHall2, castleHall3, interlude, interlude1, interlude2;
 let diningHall, diningHall1, diningHall2, diningHall3, diningHall4, diningHall5, trap, dead, dungeon, dungeonLook, dungeonSit, dungeonCall, dungeonCall1, dungeonDoor; 
-let eatFood, eatPoisonFood, orangePotionDrink;
+let eatFood, eatPoisonFood, orangePotionDrink, ratFight;
 let doorKnockSound;
 
 function preload() {
@@ -46,6 +46,7 @@ function preload() {
   eatPoisonFood = loadImage("assets/eatPoisonFood.png");
   orangePotionDrink = loadImage("assets/drinkOrangePotion.png");
   dungeonDoor= loadImage("assets/dungeonDoor.png");
+  ratFight = loadImage("assets/ratFIght.png");
 }
 
 function setup() {
@@ -147,6 +148,9 @@ function draw() {
   }
   if (state === "orangePotionDrink") {
     image(orangePotionDrink, 0, 0, width, height);
+  }
+  if (state === "ratFight") {
+    image(ratFight, 0, 0, width, height);
   }
 }
 
@@ -345,5 +349,8 @@ function keyPressed() {
   }
   else if (state === "orangePotionDrink" && keyCode === 67) {
     state = "dungeonDoor";
+  }
+  else if (state === "dungeonDoor" && keyCode === 32) {
+    state = "ratFight";
   }
 }
