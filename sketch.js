@@ -142,6 +142,12 @@ function draw() {
   if (state === "drinkOrangePotion") {
     image(orangePotionDrink, 0, 0, width, height);
   }
+  if (state === "dungeonDoor") {
+    image(dungeonDoor, 0, 0, width, height);
+  }
+  if (state === "orangePotionDrink") {
+    image(orangePotionDrink, 0, 0, width, height);
+  }
 }
 
 // make the main menu
@@ -321,20 +327,23 @@ function keyPressed() {
   else if (state === "dungeonCall1" && keyCode === 68) {
     state = "dungeonSit1";
   }
+  else if (state === "eatPoisonFood" && keyCode ===  65) {
+    state = "dungeonDoor";
+  }
+  else if (state === "orangePotionDrink" && keyCode === 65) {
+    state = "dungeonCall1";
+  }
+  else if (state === "orangePotionDrink" && keyCode === 66) {
+    if (health < 50) {
+      state = "eatPoisonFood";
+      health = 10;
+    }
+    else if (health >= 50) {
+      state = "drinkOrangePotion";
+      health = 20;
+    }
+  }
+  else if (state === "orangePotionDrink" && keyCode === 67) {
+    state = "dungeonDoor";
+  }
 }
-
-// To Do (somewhat in order?)
-
-// Figure out story and endings
-// Enemies and damage
-// NPC's
-// Text input from player
-// Sound effects
-// Items for player to pick up
-
-// Done
-
-// Write intro
-// Make start menu
-// Add player's character
-// Character movement
