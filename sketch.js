@@ -8,12 +8,11 @@
 let state = "mainMenu";
 let backgroundColor = 25;
 let health = 25;
-let hunger = false;
-let thirst = false;
 let inventory = [];
 let nightCastleImage, castleDoorImage, doorLookImage, castleHallImage, doorOpenImage, castleHall1, castleHall2, castleHall3, interlude, interlude1, interlude2;
 let diningHall, diningHall1, diningHall2, diningHall3, diningHall4, diningHall5, trap, dead, dungeon, dungeonLook, dungeonSit, dungeonCall, dungeonCall1, dungeonDoor; 
 let eatFood, eatPoisonFood, orangePotionDrink, ratFight, leftRight, left, right, zombie, leftRoom, rightRoom, prisoner, prisoner1, leavingPrisoner, staircase;
+let fallDead;
 let doorKnockSound;
 
 function preload() {
@@ -57,6 +56,7 @@ function preload() {
   prisoner1 = loadImage("assets/prisoner1.png");
   leavingPrisoner = loadImage("assets/leavingPrisoner.png");
   staircase = loadImage("assets/staircase.png");
+  fallDead = loadImage("assets/fallDead.png");
 }
 
 function setup() {
@@ -192,12 +192,15 @@ function draw() {
   if (state === "leavingPrisoner") {
     image(leavingPrisoner, 0, 0, width, height);
   }
+  if (state === "fallDead") {
+    image(fallDead, 0, 0, width, height);
+  }
 }
 
 // make the main menu
 function mainMenu() {
   background(backgroundColor);
-  textFont("Dungeon Regular", 50);
+  textFont("Footlight MT Light", 50);
   text("Escape From The Castle", width/2 - 240, height/3);
   rect(width/2 - 125, height/2 - 75, 250, 150);
   fill("black");
@@ -287,12 +290,15 @@ function keyPressed() {
   else if (state === "trap" && keyCode === 32) {
     health = random(1, 100);
     if (health < 50) {
-      state = "dead";
+      state = "fallDead";
     }
     else if (health >= 50) {
       state = "dungeon";
       health = 15;
     }
+  }
+  else if (state === "fallDead" && keyCode === 32) {
+    state = "dead";
   }
   else if (state === "diningHall2" && keyCode === 66) {
     state = "diningHall3";
