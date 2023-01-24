@@ -13,7 +13,7 @@ let thirst = false;
 let inventory = [];
 let nightCastleImage, castleDoorImage, doorLookImage, castleHallImage, doorOpenImage, castleHall1, castleHall2, castleHall3, interlude, interlude1, interlude2;
 let diningHall, diningHall1, diningHall2, diningHall3, diningHall4, diningHall5, trap, dead, dungeon, dungeonLook, dungeonSit, dungeonCall, dungeonCall1, dungeonDoor; 
-let eatFood, eatPoisonFood, orangePotionDrink, ratFight;
+let eatFood, eatPoisonFood, orangePotionDrink, ratFight, leftRight, left, right, zombie, leftRoom, rightRoom, prisoner, prisoner1, leavingPrisoner, staircase;
 let doorKnockSound;
 
 function preload() {
@@ -47,6 +47,16 @@ function preload() {
   orangePotionDrink = loadImage("assets/drinkOrangePotion.png");
   dungeonDoor= loadImage("assets/dungeonDoor.png");
   ratFight = loadImage("assets/ratFIght.png");
+  leftRight = loadImage("assets/leftRight.png");
+  left = loadImage("assets/left.png");
+  right = loadImage("assets/right.png");
+  leftRoom = loadImage("assets/leftRoom.png");
+  rightRoom = loadImage("assets/rightRoom.png");
+  zombie = loadImage("assets/zombie.png");
+  prisoner = loadImage("assets/prisoner.png");
+  prisoner1 = loadImage("assets/prisoner1.png");
+  leavingPrisoner = loadImage("assets/leavingPrisoner.png");
+  staircase = loadImage("assets/staircase.png");
 }
 
 function setup() {
@@ -152,6 +162,36 @@ function draw() {
   if (state === "ratFight") {
     image(ratFight, 0, 0, width, height);
   }
+  if (state === "leftRight") {
+    image(leftRight, 0, 0, width, height);
+  }
+  if (state === "left") {
+    image(left, 0, 0, width, height);
+  }
+  if (state === "right") {
+    image(right, 0, 0, width, height);
+  }
+  if (state === "leftRoom") {
+    image(leftRoom, 0, 0, width, height);
+  }  
+  if (state === "rightRoom") {
+    image(rightRoom, 0, 0, width, height);
+  }
+  if (state === "zombie") {
+    image(zombie, 0, 0, width, height);
+  }
+  if (state === "prisoner") {
+    image(prisoner, 0, 0, width, height);
+  }
+  if (state === "prisoner1") {
+    image(prisoner1, 0, 0, width, height);
+  }
+  if (state === "staircase") {
+    image(staircase, 0, 0, width, height);
+  }
+  if (state === "leavingPrisoner") {
+    image(leavingPrisoner, 0, 0, width, height);
+  }
 }
 
 // make the main menu
@@ -175,7 +215,7 @@ function introScreen() {
   background (0);
   fill("white");
   text("You are a real estate agent. You've been called away to a strange castle in the country to speak with the owner.", width/2 - 700, height/3);
-  text("Despite the many unnerving things you've heard about this castle and it resident(s), money is money.", width/2 - 650, height/3 + 75);
+  text("Despite the many unnerving things you've heard about this castle and its resident(s), money is money.", width/2 - 650, height/3 + 75);
   text("After a long day's journey, you have arrived.", width/2 - 300, height/3 + 150);
   text("Always press space to continue", width/2 - 200, height/3 + 450);
   textFont("Dungeon Regular", 10);
@@ -352,5 +392,38 @@ function keyPressed() {
   }
   else if (state === "dungeonDoor" && keyCode === 32) {
     state = "ratFight";
+  }
+  else if (state === "ratFight" && keyCode === 32) {
+    state = "leftRight";
+  }
+  else if (state === "leftRight" && keyCode === 65) {
+    state = "left";
+  }
+  else if (state === "leftRight" && keyCode === 66) {
+    state = "right";
+  }
+  else if (state === "left" && keyCode === 32) {
+    state = "leftRoom";
+  }
+  else if (state === "right" && keyCode === 32) {
+    state = "rightRoom";
+  }
+  else if (state === "rightRoom" && keyCode === 65) {
+    state = "zombie";
+  }
+  else if (state === "leftRoom" && keyCode === 65) {
+    state = "prisoner1";
+  }
+  else if (state === "leftRoom" && keyCode === 66) {
+    state = "prisoner";
+  }
+  else if (state === "prisoner1" && keyCode === 65) {
+    state = "staircase";
+  }
+  else if (state === "prisoner1" && keyCode === 66) {
+    state = "leavingPrisoner";
+  }
+  else if (state === "leavingPrisoner" && keyCode === 32) {
+    state = "rightRoom";
   }
 }
