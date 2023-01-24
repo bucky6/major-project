@@ -1,9 +1,6 @@
 // Escape from the castle
 // Bucky Pederson-Bradbury
 // November 17, 2022
-//
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
 
 let state = "mainMenu";
 let backgroundColor = 25;
@@ -12,7 +9,7 @@ let inventory = [];
 let nightCastleImage, castleDoorImage, doorLookImage, castleHallImage, doorOpenImage, castleHall1, castleHall2, castleHall3, interlude, interlude1, interlude2;
 let diningHall, diningHall1, diningHall2, diningHall3, diningHall4, diningHall5, trap, dead, dungeon, dungeonLook, dungeonSit, dungeonCall, dungeonCall1, dungeonDoor; 
 let eatFood, eatPoisonFood, orangePotionDrink, ratFight, leftRight, left, right, zombie, leftRoom, rightRoom, prisoner, prisoner1, leavingPrisoner, staircase;
-let fallDead;
+let fallDead, zombieDead, wonFight, lostFight, run, masterSword, entranceHallFight, abandoningPrisoner;
 let doorKnockSound;
 
 function preload() {
@@ -57,6 +54,13 @@ function preload() {
   leavingPrisoner = loadImage("assets/leavingPrisoner.png");
   staircase = loadImage("assets/staircase.png");
   fallDead = loadImage("assets/fallDead.png");
+  zombieDead = loadImage("assets/zombieDead.png");
+  wonFight = loadImage("assets/wonFight.png");
+  lostFight = loadImage("assets/lostFight.png");
+  run = loadImage("assets/run.png");
+  masterSword = loadImage("assets/masterSword.png");
+  entranceHallFight = loadImage("assets/entranceHallFight.png");
+  abandoningPrisoner = loadImage("assets/abandonPrisoner.png");
 }
 
 function setup() {
@@ -194,6 +198,32 @@ function draw() {
   }
   if (state === "fallDead") {
     image(fallDead, 0, 0, width, height);
+  }
+  if (state === "zombieDead") {
+    image(zombieDead, 0, 0, width, height);
+  }
+  if (state === "wonFight") {
+    image(wonFight, 0, 0, width, height);
+  }
+  if (state === "lostFight") {
+    image(lostFight, 0, 0, width, height);
+  }
+  if (state === "run") {
+    image(run, 0, 0, width, height);
+  }
+  if (state === "abandoningPrisoner") {
+    image(abandoningPrisoner, 0, 0, width, height);
+  }
+  if (state === "masterSword") {
+    image(masterSword, 0, 0, width, height);
+  }
+  if (state === "entranceHallFight") {
+    image(entranceHallFight, 0, 0, width, height);
+  }
+  if (state === "zombieFight") {
+    background(0);
+    text("Without a dagger, you stood no chance.", width/2 - 360, height/3);
+    text("Current health: 0", width/2 - 240, height/3 + 50);
   }
 }
 
@@ -384,6 +414,7 @@ function keyPressed() {
     state = "dungeonCall1";
   }
   else if (state === "orangePotionDrink" && keyCode === 66) {
+    health = random(1, 100);
     if (health < 50) {
       state = "eatPoisonFood";
       health = 10;
@@ -417,6 +448,9 @@ function keyPressed() {
   else if (state === "rightRoom" && keyCode === 65) {
     state = "zombie";
   }
+  else if (state === "rightRoom" && keyCode === 66) {
+    state = "fightZombie";
+  }
   else if (state === "leftRoom" && keyCode === 65) {
     state = "prisoner1";
   }
@@ -431,5 +465,49 @@ function keyPressed() {
   }
   else if (state === "leavingPrisoner" && keyCode === 32) {
     state = "rightRoom";
+  }
+  else if (state === "zombie" && keyCode === 65 || state === "zombie" && keyCode === 66 || state === "zombie" && keyCode === 67) {
+    state = "zombieDead";
+  }
+  else if (state === "zombieDead" && keyCode === 32 || state === "fallDead" && keyCode === 32) {
+    state = "dead";
+  }
+  else if (state === "staircase" && keyCode === 32) {
+    state = "entranceHallFight";
+  }
+  else if (state === "entranceHallFight" && keyCode === 32) {
+    state = "masterSword";
+  }
+  else if (state === "masterSword" && keyCode === 65) {
+    state = "abandoningPrisoner";
+  }
+  else if (state === "masterSword" && keyCode === 66) {
+    health = random(1, 100);
+    if (health < 50) {
+      state = "lostFight";
+      health = 10;
+    }
+    else if (health >= 50) {
+      state = "wonFight";
+      health = 20;
+    }
+  }
+  else if (state === "masterSword" && keyCode === 67) {
+    state = "run";
+  }
+  else if (state === "wonFight" && keyCode === 32) {
+    state = "dead";
+  }
+  else if (state === "lostFIght" && keyCode === 32) {
+    state = "dead";
+  }
+  else if (state === "abandoningPrisoner" && keyCode === 32) {
+    state = "dead";
+  }
+  else if (state === "run" && keyCode === 32) {
+    state = "dead";
+  }
+  else if (state === "zombieFight" && keyCode === 32) {
+    state = "dead";
   }
 }
